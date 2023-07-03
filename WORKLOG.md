@@ -24,7 +24,7 @@ TODO
 
 1. EagleBot statuses will be one of a defined list:
     * Active
-    * Suspended (for example, via a dedicated API, the EagleBot "signs off")
+    * OffDuty (for example, via a dedicated API, the EagleBot "signs off")
     * Unknown (an API call has not been recieved by the EagleBot since the last [X] minutes)
 
 1. Road traffic data can only be received by registered EagleBot devices. Data received with non-registered EagleBot IDs are to be rejected.
@@ -55,17 +55,20 @@ TODO
 
 ## Scoped Stories
 
-1. Design end-to-end solution, scoping:
-    1. EagleBots submitting road traffic to EagleRock,
-    1. Web application querying EagleRock for EagleBot status,
+1. Design end-to-end EagleRock-based solution, scoping:
+    1. EagleBots submitting road traffic to EagleRock API,
+    1. Web application querying EagleRock API for EagleBot status,
     1. Publication of road traffic messages to pub-sub topic, comprising planned message consumers to ensure that message content and message delivery SLA will suit for those same consumers' requirements.
+    1. Estimation of container scaling requirements, based on:
+        1. max number of EagleBot devices to be supported, and estimated traffic update rate per device
+        1. web application's status API request rate (e.g. estimated requests per second)
 1. Traffic data payload model
-1. EagleBot status model
-1. EagleRock `SendRoadTrafficStat` POST API, with stubs for EagleBot registrar, Redis cache publisher and topic publisher
-1. EagleRock `GetEagleBotStatus` GET API, with stubs for EagleBot registrar and Redis cache fetcher
-1. Redis cache EagleBot status publication
-1. Redis cache EagleBot status retrieval
-1. Topic road traffic payload publication
+1. EagleBot device summary model
+1. EagleRock `SendRoadTrafficUpdate` POST API, with stubs for EagleBot registrar, Redis cache publisher and topic publisher
+1. EagleRock `GetDevicesSummary` GET API, with stubs for EagleBot registrar and Redis cache fetcher
+1. Redis cache EagleBot road traffic update publication
+1. Redis cache EagleBot device summary retrieval
+1. Topic road traffic update publication
 1. Docker container configuration file  
 
 ## Proposed solution structure
