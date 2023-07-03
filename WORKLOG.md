@@ -2,8 +2,15 @@
 
 # Transmax - Back-End Developer Exercise
 
+## In Scope
+TODO
 
-## Assumptions Made
+## Out of Scope/de-prioritized
+
+1. EagleBots "signing off" from sending traffic data.
+1. EagleBot registrar implementation with a suitable data store.
+
+## Assumptions made
 
 1. To start with up to 3 EagleBots will report road traffic throughput/statistics to EagleRock. Solution needs to scale for up to \[X\] EagleBots reporting road traffic data.
 
@@ -23,6 +30,7 @@
 1. Road traffic data can only be received by registered EagleBot devices. Data received with non-registered EagleBot IDs are to be rejected.
 
 1. Traffic data payload is to comprise:
+  * Payload identifier
   * EagleBot unique identifier (recommend GUID for better data portability, especially with say, 1000s of EagleBots in operation)
   * Current geo-location of EagleBot, express in latitude/longitude terms
   * Timestamp for the data exchange (epoch timestamp may be preferable over ISO-8601 date/time format due to its smaller payload size)
@@ -34,7 +42,7 @@
     * Country
     * Postal code
   * Direction of traffic flow (limited to: North, South, East, West)
-  * Rate of traffic flow (defined as number of vehicles entering the road segment per 1 minute)
+  * Rate of traffic flow (defined as average number of vehicles entering the road segment per 1 minute)
   * Average vehicle speed (kilometers per hour)
 
 1. Traffic data payload will be serialized/de-serialized in JSON form. (TODO: other viable formats to consider?)
@@ -43,13 +51,7 @@
 
 1. The company implementing/delivering this solution is fictitious, and named "MM". 
 
-## Proposed Solution Structure
-
-* MM.EagleRock.API
-* MM.EagleRock.Contract
-* MM.EagleRock.Model
-* MM.EagleRock.Business
-* MM.EagleRock.DAL
+1. The Team aligned on standardising with a .NET version with LTS: .NET 6.0 (https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core)
 
 ## Scoped Stories
 
@@ -66,9 +68,12 @@
 1. Topic road traffic payload publication
 1. Docker container configuration file  
 
-## Out of Scope
+## Proposed solution structure
+Proposed projects naming/structure:
+* MM.EagleRock.API
+* MM.EagleRock.Contract
+* MM.EagleRock.Business
+* MM.EagleRock.DAL
 
-1. EagleBots "signing off" from sending traffic data.
-1. EagleBot registrar implementation with a suitable data store.
-
-
+## API Verification Testing (other than included unit tests)
+TODO
