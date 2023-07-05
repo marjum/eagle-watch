@@ -64,7 +64,7 @@ TODO
         1. web application's status API request rate (e.g. estimated requests per second)
 1. Traffic data payload model
 1. EagleBot device summary model
-1. EagleRock `SendRoadTrafficUpdate` POST API, with stubs for EagleBot registrar, Redis cache publisher and topic publisher
+1. EagleRock `ReportRoadTrafficUpdate` POST API, with stubs for EagleBot registrar, Redis cache publisher and topic publisher
 1. EagleRock `GetDevicesSummary` GET API, with stubs for EagleBot registrar and Redis cache fetcher
 1. Redis cache EagleBot road traffic update publication
 1. Redis cache EagleBot device summary retrieval
