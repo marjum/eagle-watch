@@ -3,57 +3,62 @@
 # Transmax - Back-End Developer Exercise
 
 ## In Scope
-TODO
+1. Devise road traffic update and per-device summary data models.
+1. EagleRock `ReportRoadTrafficUpdate` POST API, with stubbed EagleBot device registrar, and with implementation for traffic update publication to Redis cache.
+1. EagleRock `GetDevicesSummary` GET API, with per-device summary returned, as retrieved from Redis cache for each registered EagleBot device.
 
 ## Out of Scope/de-prioritized
 
-1. EagleBots "signing off" from sending traffic data.
-1. EagleBot registrar implementation with a suitable data store.
+1. Publishing EagleBot data to RabbitMQ, SNS or similar. *(ran out of time)*
+1. EagleBot registrar implementation with a suitable data store. *(not specified, but required in my opinion - ran out of time)*
+1. EagleBots "signing off" from sending traffic data. *(not specified, but potentially useful feature)*
+1. Others *(please refer to TODO comments in codebase)*
 
 ## Assumptions made
 
-1. To start with up to 3 EagleBots will report road traffic throughput/statistics to EagleRock. Solution needs to scale for up to \[X\] EagleBots reporting road traffic data.
-
 1. EagleBots will interact with an EagleRock REST API to send road traffic data.
 
-1. EagleBots will operate for \[X\] hours daily, and expected to make a traffic data call to EagleRock every [Y] seconds. We expect [Z] calls to the API per second.
+1. Scaling related:
+    1. To start with up to 3 EagleBots will be reporting road traffic throughput/statistics to EagleRock. As target-state, solution needs to scale for up to \[X\] EagleBots reporting road traffic data.
+     
+    1. EagleBots will operate for \[X\] hours daily, and expected to make a traffic data call to EagleRock every [Y] seconds. We expect [Z] calls to the API per second.
 
-1. Another EagleRock API will allow a web application to query current EagleBot status via a Redis cache. We expect \[X\] calls to this API per second.
+    1. Another EagleRock API will allow a web application to query current EagleBot status via a Redis cache. We expect \[X\] calls to this API per second.
 
-1. The Redis cache in use will limit peristence to "current status" data per EagleBot, and will therefore need to scale based on the number of EagleBots the solution supports.
+    1. The Redis cache in use will limit peristence to "current status" data per device (i.e. EagleBot), and will therefore need to scale based on the number of EagleBots the solution supports.
 
 1. EagleBot statuses will be one of a defined list:
     * Active
-    * OffDuty (for example, via a dedicated API, the EagleBot "signs off")
-    * Unknown (an API call has not been recieved by the EagleBot since the last [X] minutes)
+    * OffDuty (for example, via a dedicated API, de-scoped, the EagleBot "signs off")
+    * Unknown (an API call has not been recieved by the EagleBot since the last \[X\] minutes)
 
 1. Road traffic data can only be received by registered EagleBot devices. Data received with non-registered EagleBot IDs are to be rejected.
 
 1. Traffic data payload is to comprise:
-  * Payload identifier
-  * EagleBot unique identifier (recommend GUID for better data portability, especially with say, 1000s of EagleBots in operation)
-  * Current geo-location of EagleBot, express in latitude/longitude terms
-  * Timestamp for the data exchange (epoch timestamp may be preferable over ISO-8601 date/time format due to its smaller payload size)
-  * Road name under inspection, should allow for each of:
-    * Road segment
-    * Street name
-    * City/Suburb
-    * State
-    * Country
-    * Postal code
-  * Direction of traffic flow (limited to: North, South, East, West)
-  * Rate of traffic flow (defined as average number of vehicles entering the road segment per 1 minute)
-  * Average vehicle speed (kilometers per hour)
+    * Payload identifier
+    * EagleBot unique identifier (recommend GUID for better data portability, especially with say, 1000s of EagleBots in operation)
+    * Current geo-location of EagleBot, express in latitude/longitude terms
+    * Timestamp for the data exchange (epoch timestamp may be preferable over ISO-8601 date/time format due to its smaller payload size)
+    * Road name under inspection, should allow for each of:
+        * Road segment
+        * Street name
+        * City/Suburb
+        * State
+        * Country
+      * Postal code
+    * Direction of traffic flow (limited to: North, South, East, West)
+    * Rate of traffic flow (defined as average number of vehicles entering the road segment per 1 minute)
+    * Average vehicle speed (kilometers per hour)
 
-1. Traffic data payload will be serialized/de-serialized in JSON form. (TODO: other viable formats to consider?)
+1. Traffic data payload will be serialized/de-serialized in JSON form. (If payload size becomes to be a concern, there are other payload-reducing formats up for consideration, e.g. [Amazon Ion](https://amazon-ion.github.io/ion-docs/))
 
 1. Received EagleBot data should also be written to a RabbitMQ topic (or similar pub-sub based queue, e.g. AWS SNS) for external applications to consume from. (example use case: write granular road traffic data entries to a data store for querying or analytics)
 
 1. The company implementing/delivering this solution is fictitious, and named "MM". 
 
-1. The Team aligned on standardising with a .NET version with LTS: .NET 6.0 (https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core)
+1. For the EagleRock back-end, the Team aligned on standardising with a LTS .NET version: .NET 6.0 (https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core)
 
-## Scoped Stories
+## Planned Stories (to be scheduled during Sprint Planning)
 
 1. Design end-to-end EagleRock-based solution, scoping:
     1. EagleBots submitting road traffic to EagleRock API,
@@ -69,16 +74,25 @@ TODO
 1. Redis cache EagleBot road traffic update publication
 1. Redis cache EagleBot device summary retrieval
 1. Topic road traffic update publication
-1. Docker container configuration file  
+1. Docker container configuration
 
 ## Proposed solution structure
 Proposed projects naming/structure:
-* MM.EagleRock.API
-* MM.EagleRock.Contract
-* MM.EagleRock.Business
-* MM.EagleRock.DAL
+* MM.EagleRock.Api (web API)
+* MM.EagleRock.Contract (define interfaces to be implemented and ancillary models)
+* MM.EagleRock.Business (business logic classes)
+* MM.EagleRock.DAL (cache and other data persistence/retrieval mechanisms)
+* MM.EagleRock.Unit.Tests
 
 ## API Verification Testing (other than included unit tests)
+
+Steps for running API verification tests:
+
+1. Run a [Docker Redis](https://hub.docker.com/_/redis/) container with a default Redis port published. (`docker run -d -p 6379:6379 redis`)
+1. Download this repo's code.
+1. `dotnet build` and `dotnet test`.
+1. `dotnet run --project .\MM.EagleRock.Api\`
+1. Browse to https://localhost:7181/swagger and execute below tests using Swagger UI or using curl via command line.
 
 ### Report road traffic update (happy path)
 Request
