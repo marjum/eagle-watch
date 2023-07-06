@@ -6,18 +6,18 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{98EDA6A5-3902-4FC5-B605-3ADEEB786E44}"
 	ProjectSection(SolutionItems) = preProject
 		Prac Test - Back End Dev.pdf = Prac Test - Back End Dev.pdf
-		WORKLOG.md = WORKLOG.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MM.EagleRock.Contract", "MM.EagleRock.Contract\MM.EagleRock.Contract.csproj", "{B73C0D65-2EFC-4CF9-9AF1-E292CE1FED1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MM.EagleRock.Api", "MM.EagleRock.Api\MM.EagleRock.Api.csproj", "{23B80B18-C85B-4122-9CD9-69E8D3A0D533}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MM.EagleRock.Api", "MM.EagleRock.Api\MM.EagleRock.Api.csproj", "{23B80B18-C85B-4122-9CD9-69E8D3A0D533}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MM.EagleRock.Unit.Tests", "MM.EagleRock.Unit.Tests\MM.EagleRock.Unit.Tests.csproj", "{D5E5E54A-0128-487C-BDC7-C8B6FECE0BC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MM.EagleRock.Unit.Tests", "MM.EagleRock.Unit.Tests\MM.EagleRock.Unit.Tests.csproj", "{D5E5E54A-0128-487C-BDC7-C8B6FECE0BC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MM.EagleRock.Business", "MM.EagleRock.Business\MM.EagleRock.Business.csproj", "{53075E46-02B1-40CF-B7A7-0CF6E73DAD6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MM.EagleRock.Business", "MM.EagleRock.Business\MM.EagleRock.Business.csproj", "{53075E46-02B1-40CF-B7A7-0CF6E73DAD6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MM.EagleRock.DAL", "MM.EagleRock.DAL\MM.EagleRock.DAL.csproj", "{D6943D50-CDA1-48F1-964C-1F98132AED47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MM.EagleRock.DAL", "MM.EagleRock.DAL\MM.EagleRock.DAL.csproj", "{D6943D50-CDA1-48F1-964C-1F98132AED47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
