@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MM.EagleRock.Contract;
 using MM.EagleRock.Contract.Models;
+using MM.EagleRock.Contract.RoadTraffic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MM.EagleRock.Api.Controllers

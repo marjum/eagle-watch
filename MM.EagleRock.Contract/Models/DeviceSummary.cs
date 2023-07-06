@@ -16,6 +16,6 @@ namespace MM.EagleRock.Contract.Models
         [Required]
         public DeviceStatus Status { get; set; }
 
-        public RoadTrafficUpdatePayload LatestRoadTrafficUpdate { get; set; }
+        public RoadTrafficUpdatePayload? LatestRoadTrafficUpdate { get; set; }
     }
 }

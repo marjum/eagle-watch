@@ -1,6 +1,6 @@
 ﻿using MM.EagleRock.Contract.Models;
 
-namespace MM.EagleRock.Contract
+namespace MM.EagleRock.Contract.RoadTraffic
 {
     /// <summary>
     /// Contract for a road traffic "officer" component responsible for accepting traffic updates from devices, 
