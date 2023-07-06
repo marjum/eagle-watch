@@ -20,11 +20,11 @@ namespace MM.EagleRock.Business
         }
 
         /// <inheritdoc/>
-        public IEnumerable<DeviceSummary> GetDeviceStatuses()
+        public IEnumerable<DeviceSummary> GetDevicesSummary()
         {
             var registeredDeviceIds = _deviceRegistrar.GetRegisteredDeviceIds();
 
-            var deviceSummaries = _deviceSummaryCache.GetDeviceSummaries();
+            var deviceSummaries = _deviceSummaryCache.GetDeviceSummaries(registeredDeviceIds);
 
             return registeredDeviceIds
                 .Select(deviceId => 

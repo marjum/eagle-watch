@@ -82,10 +82,10 @@ namespace MM.EagleRock.Unit.Tests.Business.RoadTraffic
                 .Returns(testDeviceIds);
 
             _mockDeviceSummaryCache
-                .Setup(cache => cache.GetDeviceSummaries())
+                .Setup(cache => cache.GetDeviceSummaries(testDeviceIds))
                 .Returns(testDeviceSummaries);
 
-            IEnumerable<DeviceSummary> deviceSummaries = _roadTrafficOfficer.GetDeviceStatuses();
+            IEnumerable<DeviceSummary> deviceSummaries = _roadTrafficOfficer.GetDevicesSummary();
 
             CollectionAssert.AreEquivalent(testDeviceSummaries.Values, deviceSummaries);
         }
@@ -107,10 +107,10 @@ namespace MM.EagleRock.Unit.Tests.Business.RoadTraffic
                 .Returns(testDeviceIds);
 
             _mockDeviceSummaryCache
-                .Setup(cache => cache.GetDeviceSummaries())
+                .Setup(cache => cache.GetDeviceSummaries(testDeviceIds))
                 .Returns(testDeviceSummaries);
 
-            IEnumerable<DeviceSummary> deviceSummaries = _roadTrafficOfficer.GetDeviceStatuses();
+            IEnumerable<DeviceSummary> deviceSummaries = _roadTrafficOfficer.GetDevicesSummary();
 
             var nonCachedDeviceSummary = deviceSummaries.Single(summary => summary.DeviceId.Equals(deviceId2));
             Assert.That(nonCachedDeviceSummary.Status, Is.EqualTo(DeviceStatus.Unknown));

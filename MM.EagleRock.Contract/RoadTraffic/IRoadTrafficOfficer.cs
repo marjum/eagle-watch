@@ -12,7 +12,7 @@ namespace MM.EagleRock.Contract.RoadTraffic
         /// Gets a summary per registered device, with last traffic update reported per device. 
         /// (if the device has reported road traffic updates)
         /// </summary>
-        IEnumerable<DeviceSummary> GetDeviceStatuses();
+        IEnumerable<DeviceSummary> GetDevicesSummary();
 
         /// <summary>
         /// Processes an incoming road traffic update payload.

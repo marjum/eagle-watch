@@ -5,8 +5,8 @@
     /// </summary>
     public enum DeviceStatus
     {
-        Active,
-        OffDuty,
-        Unknown
+        OffDuty = 0,
+        Active = 1,
+        Unknown = 2
     }
 }

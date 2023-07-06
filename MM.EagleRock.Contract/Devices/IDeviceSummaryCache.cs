@@ -13,8 +13,9 @@ namespace MM.EagleRock.Contract
         /// <remarks>
         /// TODO: enable device criteria filtering, result pagination
         /// </remarks>
+        /// <param name="deviceIds">Device identifiers for which to get cached summaries.</param>
         /// <returns>Per-registered device summaries with latest road traffic updates published</returns>
-        IDictionary<Guid, DeviceSummary> GetDeviceSummaries();
+        IDictionary<Guid, DeviceSummary> GetDeviceSummaries(IEnumerable<Guid> deviceIds);
 
         /// <summary>
         /// Publishes road traffic update for the corresponding device's summary cache item.

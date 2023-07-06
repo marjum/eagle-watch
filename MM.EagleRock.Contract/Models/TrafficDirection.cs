@@ -5,9 +5,9 @@
     /// </summary>
     public enum TrafficDirection
     {
-        NorthBound,
-        SouthBound,
-        WestBound,
-        EastBound
+        NorthBound = 1,
+        EastBound = 2,
+        SouthBound = 3,
+        WestBound = 4,
     }
 }
