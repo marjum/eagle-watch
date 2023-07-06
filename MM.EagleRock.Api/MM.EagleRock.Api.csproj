@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MM.EagleRock.Business\MM.EagleRock.Business.csproj" />
     <ProjectReference Include="..\MM.EagleRock.Contract\MM.EagleRock.Contract.csproj" />
+    <ProjectReference Include="..\MM.EagleRock.DAL\MM.EagleRock.DAL.csproj" />
   </ItemGroup>
 
 </Project>

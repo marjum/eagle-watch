@@ -79,4 +79,116 @@ Proposed projects naming/structure:
 * MM.EagleRock.DAL
 
 ## API Verification Testing (other than included unit tests)
-TODO
+
+### Report road traffic update (happy path)
+Request
+```json
+curl -X 'POST' \
+  'https://localhost:7181/api/RoadTrafficUpdates' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "payloadId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "deviceId": "c4567668-5073-41d6-a633-13e5049e7775",
+  "geoLocation": {
+    "latitude": -27.471407748292812,
+    "longitude": 153.02465432944825
+  },
+  "timestamp": 1688623356,
+  "address": {
+    "segment": "{\"type\": \"LineString\", \"coordinates\": [[153.02425414910306, -27.471674040322867],[153.0259882639341, -27.470460926973487]]}",
+    "streetName": "Elizabeth Street",
+    "city": "Brisbane",
+    "state": "Queensland",
+    "country": "Australia",
+    "postalCode": "QLD4000"
+  },
+  "trafficDirection": "NorthBound",
+  "averageTrafficFlowRate": 40.56,
+  "averageVehicleSpeed": 33
+}'
+```
+Reponse (HTTP 201)
+```
+"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+```
+
+### Report road traffic update (non-registered device)
+Request
+```json
+curl -X 'POST' \
+  'https://localhost:7181/api/RoadTrafficUpdates' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "payloadId": "47a47031-9dfa-4fd4-8a68-03d790f1bc5d",
+  "deviceId": "6f9bc2cf-af29-4158-b05c-35ec10d7a49e",
+  "geoLocation": {
+    "latitude": -27.471407748292812,
+    "longitude": 153.02465432944825
+  },
+  "timestamp": 1688623356,
+  "address": {
+    "segment": "{\"type\": \"LineString\", \"coordinates\": [[153.02425414910306, -27.471674040322867],[153.0259882639341, -27.470460926973487]]}",
+    "streetName": "Elizabeth Street",
+    "city": "Brisbane",
+    "state": "Queensland",
+    "country": "Australia",
+    "postalCode": "QLD4000"
+  },
+  "trafficDirection": "NorthBound",
+  "averageTrafficFlowRate": 40.56,
+  "averageVehicleSpeed": 33
+}'
+```
+Response (HTTP 400)
+```
+Device [6f9bc2cf-af29-4158-b05c-35ec10d7a49e] for traffic update payload with Id [47a47031-9dfa-4fd4-8a68-03d790f1bc5d] is not registered
+```
+
+### Get device summaries
+Request
+```json
+curl -X 'GET' \
+  'https://localhost:7181/api/RoadTrafficUpdates/deviceStatuses' \
+  -H 'accept: text/plain'
+```
+Response
+```json
+[
+  {
+    "deviceId": "cda4687e-b8bc-4a50-a9d1-00ef4007e8ca",
+    "status": "Unknown",
+    "latestRoadTrafficUpdate": null
+  },
+  {
+    "deviceId": "c4567668-5073-41d6-a633-13e5049e7775",
+    "status": "Active",
+    "latestRoadTrafficUpdate": {
+      "payloadId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "deviceId": "c4567668-5073-41d6-a633-13e5049e7775",
+      "geoLocation": {
+        "latitude": -27.471407748292812,
+        "longitude": 153.02465432944825
+      },
+      "timestamp": 1688623356,
+      "address": {
+        "segment": "{\"type\": \"LineString\", \"coordinates\": [[153.02425414910306, -27.471674040322867],[153.0259882639341, -27.470460926973487]]}",
+        "streetName": "Elizabeth Street",
+        "city": "Brisbane",
+        "state": "Queensland",
+        "country": "Australia",
+        "postalCode": "QLD4000"
+      },
+      "trafficDirection": "NorthBound",
+      "averageTrafficFlowRate": 40.56,
+      "averageVehicleSpeed": 33
+    }
+  },
+  {
+    "deviceId": "71b3978d-2a35-4314-9908-ee5fa704caac",
+    "status": "Unknown",
+    "latestRoadTrafficUpdate": null
+  }
+]
+```

@@ -9,6 +9,7 @@ namespace MM.EagleRock.DAL.Cache
     /// </summary>
     /// <remarks>
     /// TODO: Add unit test coverage
+    /// TODO: Cater for threading concerns (e.g. conflicts with more than one thread simultaneously updating the same cache key)
     /// </remarks>
     public class RedisCacheService : ICacheService
     {

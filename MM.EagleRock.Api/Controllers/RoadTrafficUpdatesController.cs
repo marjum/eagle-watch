@@ -13,6 +13,12 @@ namespace MM.EagleRock.Api.Controllers
 
         private readonly ILogger<RoadTrafficUpdatesController> _logger;
 
+        public RoadTrafficUpdatesController(IRoadTrafficOfficer roadTrafficOfficer, ILoggerFactory loggerFactory)
+        {
+            _roadTrafficOfficer = roadTrafficOfficer;
+            _logger = loggerFactory.CreateLogger<RoadTrafficUpdatesController>();
+        }
+
         [HttpPost]
         public ActionResult ReportRoadTrafficUpdate([FromBody] RoadTrafficUpdatePayload roadTrafficUpdatePayload)
         {
@@ -24,14 +30,17 @@ namespace MM.EagleRock.Api.Controllers
             }
             catch (ValidationException e) 
             {
+                _logger.LogError(e, e.Message);
+
                 return BadRequest(e.Message);
             }
         }
 
-        [HttpGet(Name = "deviceStatuses")]
+        [Route("deviceStatuses")]
+        [HttpGet]
         public ActionResult<IEnumerable<DeviceStatus>> GetDeviceStatuses() 
         {
-            var deviceStatuses = _roadTrafficOfficer.GetDeviceStatuses();
+            var deviceStatuses = _roadTrafficOfficer.GetDevicesSummary();
 
             return Ok(deviceStatuses);
         }
